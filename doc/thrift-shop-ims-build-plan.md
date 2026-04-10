@@ -28,6 +28,7 @@ Implementation note: the live scaffold is using the current Next.js generator ou
 - [x] Step 2.2 - Build the login page UI
 - [x] Step 2.3 - Add auth server actions
 - [x] Step 2.4 - Add the app auth/query provider
+- [x] Step 2.5 - Add the sign-up page and account creation flow
 - [x] Step 2.1 - Protected route handling is active with live Supabase credentials
 - [x] Step 3.1 - Add the authenticated route group layout
 - [x] Step 3.2 - Add the sidebar navigation shell

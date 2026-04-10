@@ -1,6 +1,8 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
+const publicRoutes = new Set(["/login", "/signup"]);
+
 function readSupabaseEnv() {
   return {
     url: process.env.NEXT_PUBLIC_SUPABASE_URL,
@@ -34,12 +36,13 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
   const { pathname } = request.nextUrl;
+  const isPublicRoute = publicRoutes.has(pathname);
 
-  if (!user && pathname !== "/login") {
+  if (!user && !isPublicRoute) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (user && pathname === "/login") {
+  if (user && isPublicRoute) {
     return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
@@ -47,5 +50,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/inventory/:path*", "/login"],
+  matcher: ["/dashboard/:path*", "/inventory/:path*", "/login", "/signup"],
 };

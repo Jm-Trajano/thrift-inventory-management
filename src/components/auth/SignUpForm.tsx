@@ -4,11 +4,15 @@ import Link from "next/link";
 import { useActionState } from "react";
 import { useFormStatus } from "react-dom";
 
-import { login, type LoginActionState } from "@/app/login/actions";
+import { signUp, type SignUpActionState } from "@/app/signup/actions";
 import { AuthField } from "@/components/auth/AuthField";
 import { Button } from "@/components/ui/button";
 
-const initialState: LoginActionState = { error: null };
+const initialState: SignUpActionState = {
+  error: null,
+  fieldErrors: {},
+  success: null,
+};
 
 function SubmitButton() {
   const { pending } = useFormStatus();
@@ -19,13 +23,13 @@ function SubmitButton() {
       className="h-12 w-full rounded-none bg-ink-primary px-6 text-canvas hover:bg-ink-primary/90"
       disabled={pending}
     >
-      {pending ? "Signing in..." : "Sign in"}
+      {pending ? "Creating account..." : "Create account"}
     </Button>
   );
 }
 
-export function LoginForm() {
-  const [state, formAction] = useActionState(login, initialState);
+export function SignUpForm() {
+  const [state, formAction] = useActionState(signUp, initialState);
 
   return (
     <form action={formAction} className="space-y-8">
@@ -37,16 +41,31 @@ export function LoginForm() {
         required
         label="Email"
         placeholder="owner@shop.com"
+        error={state.fieldErrors.email}
       />
 
       <AuthField
         id="password"
         name="password"
         type="password"
-        autoComplete="current-password"
+        autoComplete="new-password"
         required
+        minLength={8}
         label="Password"
-        placeholder="Enter your password"
+        placeholder="At least 8 characters"
+        error={state.fieldErrors.password}
+      />
+
+      <AuthField
+        id="confirmPassword"
+        name="confirmPassword"
+        type="password"
+        autoComplete="new-password"
+        required
+        minLength={8}
+        label="Confirm Password"
+        placeholder="Repeat your password"
+        error={state.fieldErrors.confirmPassword}
       />
 
       {state.error ? (
@@ -55,15 +74,21 @@ export function LoginForm() {
         </p>
       ) : null}
 
+      {state.success ? (
+        <p aria-live="polite" className="text-sm text-status-available">
+          {state.success}
+        </p>
+      ) : null}
+
       <SubmitButton />
 
       <p className="text-sm leading-6 text-ink-secondary">
-        New to the shop?{" "}
+        Already have an account?{" "}
         <Link
-          href="/signup"
+          href="/login"
           className="text-ink-primary underline decoration-border-subtle underline-offset-4 transition-colors hover:text-accent-dark"
         >
-          Create an account
+          Sign in here
         </Link>
         .
       </p>

@@ -6,7 +6,7 @@ const completedSteps = [
   "Step 1.5-1.7: Env template, Supabase helper modules, and shared item types added.",
   "Repo prep: the tracked SQL migration for the initial Supabase schema is in place.",
   "Step 1.1-1.4 and 2.1: The live Supabase project is wired, migrated, and enforcing protected routes.",
-  "Step 2.2-2.4: Login UI, auth server actions, and the app provider are implemented.",
+  "Step 2.2-2.5: Login UI, sign-up flow, auth server actions, and the app provider are implemented.",
   "Step 3.1-3.4: The protected app shell now has a sidebar, top bar, page shell, and dashboard stub.",
   "Step 4.1-4.4: The item data layer and React Query hooks are implemented.",
   "Step 5.1 and 6.1-6.8: The stats row and full inventory browsing surface are in place.",
@@ -15,11 +15,9 @@ const completedSteps = [
 ];
 
 const nextSteps = [
-  "Step 1.1: Create the Supabase project.",
-  "Step 1.2-1.4: Run the checked-in SQL migration in Supabase to create the table, RLS rules, and photo bucket policies.",
-  "Step 7.2-7.4: Build the add/edit item form layout, underline primitives, and profit preview.",
   "Step 7.5-7.6: Add photo upload and mark-as-sold dialog flows.",
   "Phase 8: Replace the item detail placeholder with the full record view.",
+  "Phase 9: Add CSV export for filtered inventory data.",
 ];
 
 export default function Home() {
@@ -37,7 +35,8 @@ export default function Home() {
             <p className="max-w-2xl text-lg leading-8 text-ink-secondary">
               The project shell is in place with the editorial type system,
               color palette, Tailwind v4 design tokens, and the shadcn/ui base
-              components needed for inventory, dashboard, and auth work.
+              components needed for inventory, dashboard, auth, and account
+              creation work.
             </p>
           </div>
 
@@ -47,7 +46,7 @@ export default function Home() {
                 Current Phase
               </p>
               <p className="font-display text-2xl text-ink-primary">
-                Analytics taking shape
+                Inventory workflows taking shape
               </p>
             </div>
             <div>
@@ -60,7 +59,7 @@ export default function Home() {
               <p className="mb-2 text-xs uppercase tracking-[0.24em] text-ink-muted">
                 Next Build Slice
               </p>
-              <p>Finish the item form flow, then detail pages and live mutations.</p>
+              <p>Finish photo upload, sold-state actions, and the detail page.</p>
             </div>
           </div>
         </div>
