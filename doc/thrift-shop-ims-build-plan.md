@@ -6,6 +6,24 @@
 
 ---
 
+## Build Status
+
+Implementation note: the live scaffold is using the current Next.js generator output, which produced a Next.js 16 + Tailwind CSS 4 base. The build sequence in this plan still applies, and completed setup steps are being tracked here as the implementation moves forward.
+
+### Completed
+- [x] Step 0.1 - Initialize the Next.js project in the repository root
+- [x] Step 0.2 - Install core dependencies
+- [x] Step 0.3 - Install the initial shadcn/ui component set
+- [x] Step 0.4 - Configure the root layout fonts
+- [x] Step 0.5 - Configure design tokens and Tailwind v4 theme variables
+- [x] Step 0.6 - Apply the global CSS foundation
+
+### Up Next
+- [ ] Step 1.1 - Create the Supabase project
+- [ ] Step 1.2 - Run the database migration
+- [ ] Step 1.3 - Enable row level security
+- [ ] Step 1.4 - Create the storage bucket
+
 ## Design System Decisions (Decide Before Writing Code)
 
 Before touching the terminal, lock these in. Every component you build should reference this.
