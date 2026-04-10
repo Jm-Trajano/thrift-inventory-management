@@ -21,9 +21,11 @@ Implementation note: the live scaffold is using the current Next.js generator ou
 - [x] Step 1.6 - Create Supabase client helper modules
 - [x] Step 1.7 - Create shared TypeScript item types
 - [x] Repo prep - Add the initial tracked Supabase migration in `supabase/migrations`
+- [x] Step 1.1 - Supabase project credentials are present in `.env.local`
 - [x] Step 2.2 - Build the login page UI
 - [x] Step 2.3 - Add auth server actions
 - [x] Step 2.4 - Add the app auth/query provider
+- [x] Step 2.1 - Protected route handling is active with live Supabase credentials
 - [x] Step 3.1 - Add the authenticated route group layout
 - [x] Step 3.2 - Add the sidebar navigation shell
 - [x] Step 3.3 - Add the top bar shell
@@ -41,17 +43,18 @@ Implementation note: the live scaffold is using the current Next.js generator ou
 - [x] Step 6.6 - Add the row actions dropdown
 - [x] Step 6.7 - Add the loading skeleton
 - [x] Step 6.8 - Add the empty state
+- [x] Step 5.2 - Add the sales chart section
+- [x] Step 5.3 - Add the category breakdown
+- [x] Step 5.4 - Add the recent activity section
+- [x] Step 7.1 - Add the item form schema
 
 ### Up Next
-- [ ] Step 1.1 - Create the Supabase project
 - [ ] Step 1.2 - Run the database migration
 - [ ] Step 1.3 - Enable row level security
 - [ ] Step 1.4 - Create the storage bucket
-- [ ] Step 2.1 - Turn on protected route handling with live Supabase credentials
-- [ ] Step 5.2 - Add the sales chart section
-- [ ] Step 5.3 - Add the category breakdown
-- [ ] Step 5.4 - Add the recent activity section
-- [ ] Step 7.1 - Add the item form schema
+- [ ] Step 7.2 - Build the add/edit item form page layout
+- [ ] Step 7.3 - Finish the underline field form primitives
+- [ ] Step 7.4 - Add the live profit preview
 
 ## Design System Decisions (Decide Before Writing Code)
 
