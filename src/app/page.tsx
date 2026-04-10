@@ -7,13 +7,16 @@ const completedSteps = [
   "Repo prep: the tracked SQL migration for the initial Supabase schema is in place.",
   "Step 2.2-2.4: Login UI, auth server actions, and the app provider are implemented.",
   "Step 3.1-3.4: The protected app shell now has a sidebar, top bar, page shell, and dashboard stub.",
+  "Step 4.1-4.4: The item data layer and React Query hooks are implemented.",
+  "Step 5.1 and 6.1-6.8: The stats row and full inventory browsing surface are in place.",
 ];
 
 const nextSteps = [
   "Step 1.1: Create the Supabase project.",
   "Step 1.2-1.4: Run the checked-in SQL migration in Supabase to create the table, RLS rules, and photo bucket policies.",
   "Step 2.1: Confirm route protection with live Supabase credentials and a real account.",
-  "Phase 4: Start the item data layer once the database is live.",
+  "Step 5.2-5.4: Add charts and recent activity to the dashboard.",
+  "Phase 7: Build the add and edit item forms on top of the new data layer.",
 ];
 
 export default function Home() {
@@ -41,7 +44,7 @@ export default function Home() {
                 Current Phase
               </p>
               <p className="font-display text-2xl text-ink-primary">
-                Phase 3 shell ready
+                Inventory surface ready
               </p>
             </div>
             <div>
@@ -54,7 +57,7 @@ export default function Home() {
               <p className="mb-2 text-xs uppercase tracking-[0.24em] text-ink-muted">
                 Next Build Slice
               </p>
-              <p>Live Supabase setup, then the item data layer and inventory views.</p>
+              <p>Live Supabase setup, then dashboard charts and the item form flow.</p>
             </div>
           </div>
         </div>

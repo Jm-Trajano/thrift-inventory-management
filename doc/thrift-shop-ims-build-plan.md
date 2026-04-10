@@ -28,6 +28,19 @@ Implementation note: the live scaffold is using the current Next.js generator ou
 - [x] Step 3.2 - Add the sidebar navigation shell
 - [x] Step 3.3 - Add the top bar shell
 - [x] Step 3.4 - Add the reusable page shell component
+- [x] Step 4.1 - Add the centralized item service module
+- [x] Step 4.2 - Implement filtered item querying
+- [x] Step 4.3 - Implement item stats aggregation
+- [x] Step 4.4 - Add React Query hooks for items and stats
+- [x] Step 5.1 - Add the dashboard stats section
+- [x] Step 6.1 - Add the inventory page header
+- [x] Step 6.2 - Add the search and filter bar
+- [x] Step 6.3 - Add the inventory table
+- [x] Step 6.4 - Add the status badge component
+- [x] Step 6.5 - Add the profit cell component
+- [x] Step 6.6 - Add the row actions dropdown
+- [x] Step 6.7 - Add the loading skeleton
+- [x] Step 6.8 - Add the empty state
 
 ### Up Next
 - [ ] Step 1.1 - Create the Supabase project
@@ -35,6 +48,10 @@ Implementation note: the live scaffold is using the current Next.js generator ou
 - [ ] Step 1.3 - Enable row level security
 - [ ] Step 1.4 - Create the storage bucket
 - [ ] Step 2.1 - Turn on protected route handling with live Supabase credentials
+- [ ] Step 5.2 - Add the sales chart section
+- [ ] Step 5.3 - Add the category breakdown
+- [ ] Step 5.4 - Add the recent activity section
+- [ ] Step 7.1 - Add the item form schema
 
 ## Design System Decisions (Decide Before Writing Code)
 

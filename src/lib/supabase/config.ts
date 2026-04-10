@@ -20,3 +20,18 @@ export function getSupabaseEnv() {
     anonKey: readRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
   };
 }
+
+export function getOptionalSupabaseEnv() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!url || !anonKey) {
+    return null;
+  }
+
+  return { url, anonKey };
+}
+
+export function hasSupabaseEnv() {
+  return getOptionalSupabaseEnv() !== null;
+}
