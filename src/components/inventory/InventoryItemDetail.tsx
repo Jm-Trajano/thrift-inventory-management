@@ -7,11 +7,12 @@ import { ImageIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+import { ArchiveItemDialog } from "@/components/inventory/ArchiveItemDialog";
 import { MarkAsSoldDialog } from "@/components/inventory/MarkAsSoldDialog";
 import { useAuth } from "@/components/providers/AuthProvider";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { useItem } from "@/hooks/useItem";
-import { restoreItem, softDeleteItem } from "@/lib/items";
+import { restoreItem } from "@/lib/items";
 import { formatCurrency, formatShortDate } from "@/lib/utils";
 import type { Item } from "@/types/item";
 
@@ -31,6 +32,7 @@ export function InventoryItemDetail({ itemId }: { itemId: string }) {
   const queryClient = useQueryClient();
   const { supabase } = useAuth();
   const itemQuery = useItem(itemId);
+  const [archiveDialogOpen, setArchiveDialogOpen] = useState(false);
 
   const invalidateInventory = async () => {
     await Promise.all([
@@ -51,27 +53,6 @@ export function InventoryItemDetail({ itemId }: { itemId: string }) {
     onSuccess: async () => {
       await invalidateInventory();
       toast.success("Item restored to available.");
-    },
-    onError: (error: unknown) => {
-      toast.error(
-        error instanceof Error ? error.message : "Something went wrong.",
-      );
-    },
-  });
-
-  const archiveMutation = useMutation({
-    mutationFn: async () => {
-      if (!supabase) {
-        throw new Error("Supabase client is not ready.");
-      }
-
-      await softDeleteItem(itemId, supabase);
-    },
-    onSuccess: async () => {
-      await invalidateInventory();
-      toast.success("Item archived.");
-      router.push("/inventory");
-      router.refresh();
     },
     onError: (error: unknown) => {
       toast.error(
@@ -220,11 +201,10 @@ export function InventoryItemDetail({ itemId }: { itemId: string }) {
               {item.status !== "Archived" ? (
                 <button
                   type="button"
-                  onClick={() => archiveMutation.mutate()}
+                  onClick={() => setArchiveDialogOpen(true)}
                   className="text-status-archived transition-colors hover:underline"
-                  disabled={archiveMutation.isPending}
                 >
-                  {archiveMutation.isPending ? "Archiving..." : "Archive"}
+                  Archive
                 </button>
               ) : null}
             </div>
@@ -248,6 +228,16 @@ export function InventoryItemDetail({ itemId }: { itemId: string }) {
           </div>
         </div>
       </div>
+      {archiveDialogOpen ? (
+        <ArchiveItemDialog
+          item={item}
+          open={archiveDialogOpen}
+          onOpenChange={setArchiveDialogOpen}
+          onArchived={() => {
+            router.push("/inventory");
+          }}
+        />
+      ) : null}
     </div>
   );
 }

@@ -11,13 +11,13 @@ const completedSteps = [
   "Step 4.1-4.4: The item data layer and React Query hooks are implemented.",
   "Step 5.1 and 6.1-6.8: The stats row and full inventory browsing surface are in place.",
   "Step 5.2-5.4 and 7.1: Dashboard analytics sections and the item form schema are in place.",
-  "Step 7.2-9: The item form flow, detail page, sold-state mutations, and CSV export are in place.",
+  "Step 7.2-10: The item flow, detail page, CSV export, and action polish are in place.",
 ];
 
 const nextSteps = [
-  "Phase 10: Extend toast and mutation polish across the remaining actions.",
   "Phase 12: Run the end-to-end UX checklist against a live account.",
   "Deployment: push the polished build and verify the hosted flow.",
+  "Responsive QA: audit mobile inventory and form layouts against the checklist.",
 ];
 
 export default function Home() {
@@ -59,7 +59,7 @@ export default function Home() {
               <p className="mb-2 text-xs uppercase tracking-[0.24em] text-ink-muted">
                 Next Build Slice
               </p>
-              <p>Finish polish and the live UX checklist next.</p>
+              <p>Run the live UX checklist next, then do deployment verification.</p>
             </div>
           </div>
         </div>

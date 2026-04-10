@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 
+import { ArchiveItemDialog } from "@/components/inventory/ArchiveItemDialog";
 import { MarkAsSoldDialog } from "@/components/inventory/MarkAsSoldDialog";
 import { ProfitCell } from "@/components/inventory/ProfitCell";
 import { useAuth } from "@/components/providers/AuthProvider";
@@ -27,7 +28,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { restoreItem, softDeleteItem } from "@/lib/items";
+import { restoreItem } from "@/lib/items";
 import { formatCurrency, formatShortDate } from "@/lib/utils";
 import type { Item } from "@/types/item";
 
@@ -36,6 +37,7 @@ export function InventoryRow({ item }: { item: Item }) {
   const queryClient = useQueryClient();
   const { supabase } = useAuth();
   const [soldDialogOpen, setSoldDialogOpen] = useState(false);
+  const [archiveDialogOpen, setArchiveDialogOpen] = useState(false);
 
   const restoreMutation = useMutation({
     mutationFn: async () => {
@@ -53,30 +55,6 @@ export function InventoryRow({ item }: { item: Item }) {
       ]);
 
       toast.success("Item restored to available.");
-    },
-    onError: (error: unknown) => {
-      toast.error(
-        error instanceof Error ? error.message : "Something went wrong.",
-      );
-    },
-  });
-
-  const archiveMutation = useMutation({
-    mutationFn: async () => {
-      if (!supabase) {
-        throw new Error("Supabase client is not ready.");
-      }
-
-      await softDeleteItem(item.id, supabase);
-    },
-    onSuccess: async () => {
-      await Promise.all([
-        queryClient.invalidateQueries({ queryKey: ["items"] }),
-        queryClient.invalidateQueries({ queryKey: ["item-stats"] }),
-        queryClient.invalidateQueries({ queryKey: ["item", item.id] }),
-      ]);
-
-      toast.success("Item archived.");
     },
     onError: (error: unknown) => {
       toast.error(
@@ -170,12 +148,11 @@ export function InventoryRow({ item }: { item: Item }) {
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem
-                disabled={archiveMutation.isPending}
-                onSelect={() => archiveMutation.mutate()}
+                onSelect={() => setArchiveDialogOpen(true)}
                 variant="destructive"
               >
                 <Trash2 size={14} />
-                {archiveMutation.isPending ? "Archiving..." : "Archive"}
+                Archive
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -187,6 +164,13 @@ export function InventoryRow({ item }: { item: Item }) {
           item={item}
           open={soldDialogOpen}
           onOpenChange={setSoldDialogOpen}
+        />
+      ) : null}
+      {archiveDialogOpen ? (
+        <ArchiveItemDialog
+          item={item}
+          open={archiveDialogOpen}
+          onOpenChange={setArchiveDialogOpen}
         />
       ) : null}
     </>
