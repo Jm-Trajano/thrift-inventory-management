@@ -2,13 +2,15 @@
 
 import { useDeferredValue, useMemo, useState } from "react";
 import Link from "next/link";
-import { Plus } from "lucide-react";
+import { Download, Plus } from "lucide-react";
+import { toast } from "sonner";
 
 import { FilterBar } from "@/components/inventory/FilterBar";
 import { InventoryTable } from "@/components/inventory/InventoryTable";
 import { PageShell } from "@/components/layout/PageShell";
 import { Button } from "@/components/ui/button";
 import { useItems } from "@/hooks/useItems";
+import { exportItemsToCSV } from "@/lib/export";
 import type { ItemFilters } from "@/lib/items";
 import { hasSupabaseEnv } from "@/lib/supabase/config";
 
@@ -34,21 +36,47 @@ export function InventoryClientPage() {
   );
 
   const itemsQuery = useItems(queryFilters);
+  const filteredItems = itemsQuery.data ?? [];
+  const canExport =
+    filteredItems.length > 0 && !itemsQuery.isLoading && !itemsQuery.isFetching;
 
   return (
     <PageShell
       title="Inventory, arranged for browsing."
       subtitle="Search the floor, filter by status or condition, and scan margins without collapsing into a cramped admin grid."
       action={
-        <Button
-          asChild
-          className="rounded-none bg-ink-primary px-5 text-canvas hover:bg-ink-primary/90"
-        >
-          <Link href="/inventory/new">
-            <Plus size={15} />
-            Add Item
-          </Link>
-        </Button>
+        <div className="flex flex-wrap items-center gap-5">
+          <button
+            type="button"
+            onClick={() => {
+              if (!canExport) {
+                toast.message("Nothing to export yet.", {
+                  description:
+                    "Use the filters to scope the list, then export when items are visible.",
+                });
+                return;
+              }
+
+              exportItemsToCSV(filteredItems);
+              toast.success("CSV export started.");
+            }}
+            className="inline-flex items-center gap-2 text-sm text-ink-secondary underline decoration-border-subtle underline-offset-4 transition-colors hover:text-ink-primary disabled:cursor-not-allowed disabled:no-underline disabled:opacity-45"
+            disabled={!canExport}
+          >
+            <Download size={15} />
+            Export CSV
+          </button>
+
+          <Button
+            asChild
+            className="rounded-none bg-ink-primary px-5 text-canvas hover:bg-ink-primary/90"
+          >
+            <Link href="/inventory/new">
+              <Plus size={15} />
+              Add Item
+            </Link>
+          </Button>
+        </div>
       }
     >
       {!hasSupabaseEnv() ? (
@@ -76,8 +104,8 @@ export function InventoryClientPage() {
               Current View
             </p>
             <p className="mt-2 text-sm text-ink-secondary">
-              {itemsQuery.data?.length ?? 0} item
-              {itemsQuery.data?.length === 1 ? "" : "s"} in scope
+              {filteredItems.length} item
+              {filteredItems.length === 1 ? "" : "s"} in scope
             </p>
           </div>
 
@@ -89,7 +117,7 @@ export function InventoryClientPage() {
         </div>
 
         <InventoryTable
-          items={itemsQuery.data ?? []}
+          items={filteredItems}
           isLoading={itemsQuery.isLoading || itemsQuery.isFetching}
         />
       </div>

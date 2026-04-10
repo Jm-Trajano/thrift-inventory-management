@@ -57,10 +57,12 @@ Implementation note: the live scaffold is using the current Next.js generator ou
 - [x] Step 7.5 - Add the photo upload component
 - [x] Step 7.6 - Add the mark-as-sold dialog
 - [x] Step 8 - Build the item detail page
+- [x] Step 9.1 - Add the CSV export function
+- [x] Step 9.2 - Add the inventory export action
 
 ### Up Next
-- [ ] Step 9.1 - Add the CSV export function
-- [ ] Step 9.2 - Add the inventory export action
+- [ ] Step 10 - Review and polish toast coverage
+- [ ] Step 12.4 - Run the final UX checklist
 
 ## Design System Decisions (Decide Before Writing Code)
 
