@@ -55,9 +55,9 @@ Implementation note: the live scaffold is using the current Next.js generator ou
 - [x] Step 7.3 - Finish the underline field form primitives
 - [x] Step 7.4 - Add the live profit preview
 - [x] Step 7.5 - Add the photo upload component
+- [x] Step 7.6 - Add the mark-as-sold dialog
 
 ### Up Next
-- [ ] Step 7.6 - Add the mark-as-sold dialog
 - [ ] Step 8 - Build the item detail page
 
 ## Design System Decisions (Decide Before Writing Code)
