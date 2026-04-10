@@ -63,6 +63,7 @@ Implementation note: the live scaffold is using the current Next.js generator ou
 
 ### Up Next
 - [ ] Step 12.4 - Run the final UX checklist
+- QA blocker - a loginable Supabase user is still required for the end-to-end pass, and in-app sign-up is currently hitting the project's auth email rate limit.
 
 ## Design System Decisions (Decide Before Writing Code)
 
@@ -1389,6 +1390,7 @@ Test on 375px (iPhone SE), 390px (iPhone 14), 768px (iPad):
 ### Step 12.4 — Final UX Review
 
 Walk through each user story end-to-end:
+- Current blocker: the checklist cannot be completed until a valid shop account can sign in without hitting the Supabase auth rate limit.
 - [ ] Add a new item with a photo → appears in inventory
 - [ ] Edit the item → changes saved
 - [ ] Mark it as sold → status updates, profit appears

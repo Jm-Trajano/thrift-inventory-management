@@ -1,0 +1,45 @@
+⚠ Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from "127.0.0.1".
+Cross-origin access to Next.js dev resources is blocked by default for safety.
+
+To allow this host in development, add it to "allowedDevOrigins" in next.config.js and restart the dev server:
+
+// next.config.js
+module.exports = {
+  allowedDevOrigins: ['127.0.0.1'],
+}
+
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[browser] Uncaught Error: Missing NEXT_PUBLIC_SUPABASE_URL. Copy .env.example to .env.local and fill in your Supabase credentials.
+    at readRequiredEnv (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/src_0852..u._.js:17:15)
+    at getSupabaseEnv (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/src_0852..u._.js:23:14)
+    at createClient (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/src_0852..u._.js:57:184)
+    at AuthProvider.useMemo[supabase] (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/src_0852..u._.js:102:172)
+    at mountMemo (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:5393:25)
+    at Object.useMemo (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:15213:24)
+    at exports.useMemo (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:1742:36)
+    at AuthProvider (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/src_0852..u._.js:98:195)
+    at Object.react_stack_bottom_frame (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:15037:24)
+    at renderWithHooks (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:4620:24)
+    at updateFunctionComponent (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6081:21)
+    at beginWork (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:6665:639)
+    at runWithFiberInDEV (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:965:74)
+    at performUnitOfWork (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9555:97)
+    at workLoopSync (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9449:40)
+    at renderRootSync (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9433:13)
+    at performWorkOnRoot (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:9098:47)
+    at performWorkOnRootViaSchedulerTask (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_react-dom_058-ah~._.js:10255:9)
+    at MessagePort.performWorkUntilDeadline (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_compiled_0rpq4pf._.js:2647:64)
+    at RootLayout (src\app\layout.tsx:47:9)
+  45 |     >
+  46 |       <body className="min-h-full flex flex-col bg-background text-foreground antialiased">
+> 47 |         <AuthProvider>{children}</AuthProvider>
+     |         ^
+  48 |       </body>
+  49 |     </html>
+  50 |   );
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+⚠ Fast Refresh had to perform a full reload when ./src/lib/supabase/config.ts changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_115brz8._.js:2431:13)
+⚠ Found a change in next.config.ts. Restarting the server to apply the changes...
+[browser] Detected `scroll-behavior: smooth` on the `<html>` element. To disable smooth scrolling during route transitions, add `data-scroll-behavior="smooth"` to your <html> element. Learn more: https://nextjs.org/docs/messages/missing-data-scroll-behavior (file://C:/Users/USER/Documents/Portfolio Projects/Thrift/.next/dev/static/chunks/node_modules_next_dist_115brz8._.js:2431:13)

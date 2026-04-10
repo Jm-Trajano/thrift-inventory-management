@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { Controller, useForm, useWatch } from "react-hook-form";
+import { useEffect, useMemo, useState, type ChangeEvent } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
@@ -57,6 +57,19 @@ function toErrorMessage(error: unknown) {
   return error instanceof Error ? error.message : "Something went wrong.";
 }
 
+function toPreviewNumber(value: unknown) {
+  if (typeof value === "number" && Number.isFinite(value)) {
+    return value;
+  }
+
+  if (typeof value === "string") {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : 0;
+  }
+
+  return 0;
+}
+
 interface SaveItemResult {
   item: Item;
   photoError: string | null;
@@ -74,6 +87,8 @@ export function ItemForm({
   const { supabase } = useAuth();
   const itemQuery = useItem(mode === "edit" ? itemId : undefined);
   const [photoFile, setPhotoFile] = useState<File | null>(null);
+  const [previewCost, setPreviewCost] = useState<number | null>(null);
+  const [previewPrice, setPreviewPrice] = useState<number | null>(null);
 
   const form = useForm<ItemFormInput, unknown, ItemFormData>({
     resolver: zodResolver(itemSchema),
@@ -106,10 +121,16 @@ export function ItemForm({
     });
   }, [form, itemQuery.data, mode]);
 
-  const [costPrice = 0, sellingPrice = 0] = useWatch({
-    control: form.control,
-    name: ["cost_price", "selling_price"],
-  }) as [ItemFormInput["cost_price"], ItemFormInput["selling_price"]];
+  const costPriceField = form.register("cost_price", {
+    valueAsNumber: true,
+  });
+  const sellingPriceField = form.register("selling_price", {
+    valueAsNumber: true,
+  });
+  const displayedPreviewCost =
+    previewCost ?? (mode === "edit" ? itemQuery.data?.cost_price ?? 0 : 0);
+  const displayedPreviewPrice =
+    previewPrice ?? (mode === "edit" ? itemQuery.data?.selling_price ?? 0 : 0);
 
   const localPhotoUrl = useMemo(() => {
     if (!photoFile) {
@@ -315,7 +336,11 @@ export function ItemForm({
             type="number"
             step="0.01"
             min="0"
-            {...form.register("cost_price")}
+            {...costPriceField}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              costPriceField.onChange(event);
+              setPreviewCost(toPreviewNumber(event.target.value));
+            }}
             error={form.formState.errors.cost_price}
           />
           <UnderlineField
@@ -323,7 +348,11 @@ export function ItemForm({
             type="number"
             step="0.01"
             min="0"
-            {...form.register("selling_price")}
+            {...sellingPriceField}
+            onChange={(event: ChangeEvent<HTMLInputElement>) => {
+              sellingPriceField.onChange(event);
+              setPreviewPrice(toPreviewNumber(event.target.value));
+            }}
             error={form.formState.errors.selling_price}
           />
         </div>
@@ -336,8 +365,8 @@ export function ItemForm({
         />
 
         <ProfitPreview
-          cost={Number(costPrice || 0)}
-          price={Number(sellingPrice || 0)}
+          cost={displayedPreviewCost}
+          price={displayedPreviewPrice}
         />
 
         <div className="flex flex-wrap gap-4 pt-4">

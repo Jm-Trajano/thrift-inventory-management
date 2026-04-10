@@ -1,10 +1,7 @@
-type RequiredSupabaseEnv =
-  | "NEXT_PUBLIC_SUPABASE_URL"
-  | "NEXT_PUBLIC_SUPABASE_ANON_KEY";
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
-function readRequiredEnv(name: RequiredSupabaseEnv) {
-  const value = process.env[name];
-
+function readRequiredEnv(name: string, value: string | undefined) {
   if (!value) {
     throw new Error(
       `Missing ${name}. Copy .env.example to .env.local and fill in your Supabase credentials.`,
@@ -16,20 +13,20 @@ function readRequiredEnv(name: RequiredSupabaseEnv) {
 
 export function getSupabaseEnv() {
   return {
-    url: readRequiredEnv("NEXT_PUBLIC_SUPABASE_URL"),
-    anonKey: readRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY"),
+    url: readRequiredEnv("NEXT_PUBLIC_SUPABASE_URL", supabaseUrl),
+    anonKey: readRequiredEnv("NEXT_PUBLIC_SUPABASE_ANON_KEY", supabaseAnonKey),
   };
 }
 
 export function getOptionalSupabaseEnv() {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!url || !anonKey) {
+  if (!supabaseUrl || !supabaseAnonKey) {
     return null;
   }
 
-  return { url, anonKey };
+  return {
+    url: supabaseUrl,
+    anonKey: supabaseAnonKey,
+  };
 }
 
 export function hasSupabaseEnv() {

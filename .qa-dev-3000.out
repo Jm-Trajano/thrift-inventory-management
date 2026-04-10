@@ -1,0 +1,44 @@
+
+> thrift-ims@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.3 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.153.53.41:3000
+- Environments: .env.local
+✓ Ready in 1008ms
+Creating turbopack project {
+  dir: 'C:\\Users\\USER\\Documents\\Portfolio Projects\\Thrift',
+  testMode: true
+}
+
+○ Compiling /_not-found/page ...
+ GET /inventory/new 404 in 17.4s (next.js: 14.9s, proxy.ts: 1460ms, application-code: 1062ms)
+ GET /login 200 in 1313ms (next.js: 529ms, proxy.ts: 124ms, application-code: 660ms)
+✓ Compiled in 1208ms
+ GET /login 200 in 2.3s (next.js: 1062ms, proxy.ts: 396ms, application-code: 812ms)
+ GET /login 200 in 181ms (next.js: 18ms, proxy.ts: 34ms, application-code: 128ms)
+ GET /signup 200 in 460ms (next.js: 182ms, proxy.ts: 25ms, application-code: 253ms)
+ POST /signup 200 in 1096ms (next.js: 7ms, proxy.ts: 24ms, application-code: 1065ms)
+  └─ ƒ signUp({"error":null,"fieldErrors":{},"success":null}, {}) in 849ms src/app/signup/actions.ts
+ POST /signup 200 in 501ms (next.js: 40ms, proxy.ts: 86ms, application-code: 376ms)
+  └─ ƒ signUp({"error":"Email address \"qa-thrift-20260411@example.com\" is invalid","fieldErrors":{},"success":null}, {}) in 309ms src/app/signup/actions.ts
+ GET /login 200 in 131ms (next.js: 29ms, proxy.ts: 47ms, application-code: 54ms)
+ POST /login 200 in 483ms (next.js: 50ms, proxy.ts: 27ms, application-code: 407ms)
+  └─ ƒ login({"error":null}, {}) in 327ms src/app/login/actions.ts
+▲ Next.js 16.2.3 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://10.153.53.41:3000
+- Environments: .env.local
+✓ Ready in 851ms
+Creating turbopack project {
+  dir: 'C:\\Users\\USER\\Documents\\Portfolio Projects\\Thrift',
+  testMode: true
+}
+
+ GET /login 200 in 4.4s (next.js: 946ms, proxy.ts: 933ms, application-code: 2.5s)
+ GET /dashboard 200 in 647ms (next.js: 253ms, proxy.ts: 181ms, application-code: 213ms)
+ POST /login 303 in 2.3s (next.js: 122ms, proxy.ts: 255ms, application-code: 1894ms)
+  └─ ƒ login({"error":null}, {}) in 923ms src/app/login/actions.ts
+ GET /inventory/new 200 in 2.5s (next.js: 680ms, proxy.ts: 1663ms, application-code: 207ms)
+ GET /inventory/new 200 in 1874ms (next.js: 70ms, proxy.ts: 1029ms, application-code: 775ms)
