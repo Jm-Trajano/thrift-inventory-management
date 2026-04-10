@@ -1,19 +1,20 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
+import { PhotoUpload } from "@/components/inventory/PhotoUpload";
 import { useAuth } from "@/components/providers/AuthProvider";
 import { ProfitPreview } from "@/components/inventory/ProfitPreview";
 import { Button } from "@/components/ui/button";
 import { UnderlineField } from "@/components/ui/UnderlineField";
 import { UnderlineSelect } from "@/components/ui/UnderlineSelect";
 import { useItem } from "@/hooks/useItem";
-import { createItem, updateItem } from "@/lib/items";
+import { createItem, updateItem, uploadItemPhoto } from "@/lib/items";
 import {
   itemSchema,
   type ItemFormData,
@@ -22,6 +23,7 @@ import {
 import {
   ITEM_CATEGORIES,
   ITEM_CONDITIONS,
+  type Item,
   type NewItem,
 } from "@/types/item";
 
@@ -30,7 +32,11 @@ function toNullableString(value?: string) {
   return trimmed ? trimmed : null;
 }
 
-function toItemPayload(values: ItemFormData): NewItem {
+function toItemPayload(
+  values: ItemFormData,
+  photoUrl: string | null,
+  existingItem?: Pick<Item, "date_sold" | "sale_price" | "status"> | null,
+): NewItem {
   return {
     name: values.name.trim(),
     brand: toNullableString(values.brand),
@@ -39,12 +45,21 @@ function toItemPayload(values: ItemFormData): NewItem {
     category: values.category ?? null,
     cost_price: values.cost_price,
     selling_price: values.selling_price,
-    sale_price: null,
-    status: "Available",
-    date_sold: null,
+    sale_price: existingItem?.sale_price ?? null,
+    status: existingItem?.status ?? "Available",
+    date_sold: existingItem?.date_sold ?? null,
     notes: toNullableString(values.notes),
-    photo_url: null,
+    photo_url: photoUrl,
   };
+}
+
+function toErrorMessage(error: unknown) {
+  return error instanceof Error ? error.message : "Something went wrong.";
+}
+
+interface SaveItemResult {
+  item: Item;
+  photoError: string | null;
 }
 
 export function ItemForm({
@@ -58,6 +73,7 @@ export function ItemForm({
   const queryClient = useQueryClient();
   const { supabase } = useAuth();
   const itemQuery = useItem(mode === "edit" ? itemId : undefined);
+  const [photoFile, setPhotoFile] = useState<File | null>(null);
 
   const form = useForm<ItemFormInput, unknown, ItemFormData>({
     resolver: zodResolver(itemSchema),
@@ -95,37 +111,88 @@ export function ItemForm({
     name: ["cost_price", "selling_price"],
   }) as [ItemFormInput["cost_price"], ItemFormInput["selling_price"]];
 
+  const localPhotoUrl = useMemo(() => {
+    if (!photoFile) {
+      return null;
+    }
+
+    return URL.createObjectURL(photoFile);
+  }, [photoFile]);
+
+  useEffect(() => {
+    return () => {
+      if (localPhotoUrl) {
+        URL.revokeObjectURL(localPhotoUrl);
+      }
+    };
+  }, [localPhotoUrl]);
+
+  const displayedPhotoUrl = localPhotoUrl ?? itemQuery.data?.photo_url ?? null;
+
   const mutation = useMutation({
-    mutationFn: async (values: ItemFormData) => {
+    mutationFn: async (values: ItemFormData): Promise<SaveItemResult> => {
       if (!supabase) {
         throw new Error("Supabase client is not ready.");
       }
 
-      const payload = toItemPayload(values);
-
       if (mode === "edit" && itemId) {
-        return updateItem(itemId, payload, supabase);
+        let item = await updateItem(
+          itemId,
+          toItemPayload(
+            values,
+            itemQuery.data?.photo_url ?? null,
+            itemQuery.data,
+          ),
+          supabase,
+        );
+
+        if (!photoFile) {
+          return { item, photoError: null };
+        }
+
+        try {
+          const photoUrl = await uploadItemPhoto(photoFile, itemId, supabase);
+          item = await updateItem(itemId, { photo_url: photoUrl }, supabase);
+          return { item, photoError: null };
+        } catch (error) {
+          return { item, photoError: toErrorMessage(error) };
+        }
       }
 
-      return createItem(payload, supabase);
+      let item = await createItem(toItemPayload(values, null), supabase);
+
+      if (!photoFile) {
+        return { item, photoError: null };
+      }
+
+      try {
+        const photoUrl = await uploadItemPhoto(photoFile, item.id, supabase);
+        item = await updateItem(item.id, { photo_url: photoUrl }, supabase);
+        return { item, photoError: null };
+      } catch (error) {
+        return { item, photoError: toErrorMessage(error) };
+      }
     },
-    onSuccess: async () => {
+    onSuccess: async ({ item, photoError }) => {
       await Promise.all([
         queryClient.invalidateQueries({ queryKey: ["items"] }),
         queryClient.invalidateQueries({ queryKey: ["item-stats"] }),
-        queryClient.invalidateQueries({ queryKey: ["item", itemId] }),
+        queryClient.invalidateQueries({ queryKey: ["item", item.id] }),
       ]);
 
       toast.success(
         mode === "edit" ? "Item changes saved." : "Item added to inventory.",
       );
+
+      if (photoError) {
+        toast.error(`Item saved, but photo upload failed: ${photoError}`);
+      }
+
       router.push("/inventory");
       router.refresh();
     },
-    onError: (error) => {
-      toast.error(
-        error instanceof Error ? error.message : "Something went wrong.",
-      );
+    onError: (error: unknown) => {
+      toast.error(toErrorMessage(error));
     },
   });
 
@@ -178,11 +245,14 @@ export function ItemForm({
             : "Fill in what you know. Brand, size, and condition help you find items faster later."}
         </p>
 
-        <div className="flex h-[220px] w-[220px] items-center justify-center border-2 border-dashed border-border-subtle bg-canvas-surface text-center text-xs uppercase tracking-[0.22em] text-ink-muted">
-          Photo upload
-          <br />
-          comes next
-        </div>
+        <PhotoUpload
+          hasDraftFile={Boolean(photoFile)}
+          imageUrl={displayedPhotoUrl}
+          isBusy={mutation.isPending}
+          onFileChange={(file) => {
+            setPhotoFile(file);
+          }}
+        />
       </div>
 
       <form

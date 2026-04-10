@@ -11,11 +11,11 @@ const completedSteps = [
   "Step 4.1-4.4: The item data layer and React Query hooks are implemented.",
   "Step 5.1 and 6.1-6.8: The stats row and full inventory browsing surface are in place.",
   "Step 5.2-5.4 and 7.1: Dashboard analytics sections and the item form schema are in place.",
-  "Step 7.2-7.4: The add/edit item form flow, underline primitives, and profit preview are in place.",
+  "Step 7.2-7.5: The add/edit item form flow, profit preview, and photo upload are in place.",
 ];
 
 const nextSteps = [
-  "Step 7.5-7.6: Add photo upload and mark-as-sold dialog flows.",
+  "Step 7.6: Add the mark-as-sold dialog flow.",
   "Phase 8: Replace the item detail placeholder with the full record view.",
   "Phase 9: Add CSV export for filtered inventory data.",
 ];
@@ -59,7 +59,7 @@ export default function Home() {
               <p className="mb-2 text-xs uppercase tracking-[0.24em] text-ink-muted">
                 Next Build Slice
               </p>
-              <p>Finish photo upload, sold-state actions, and the detail page.</p>
+              <p>Build sold-state actions next, then the full detail page.</p>
             </div>
           </div>
         </div>
