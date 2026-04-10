@@ -175,9 +175,25 @@ export async function getItemById(id: string, client?: SupabaseClient): Promise<
 
 export async function createItem(data: NewItem, client?: SupabaseClient): Promise<Item> {
   const supabase = getClient(client);
+  const {
+    data: { user },
+    error: userError,
+  } = await supabase.auth.getUser();
+
+  if (userError) {
+    throw userError;
+  }
+
+  if (!user) {
+    throw new Error("You must be signed in to create an item.");
+  }
+
   const { data: created, error } = await supabase
     .from("items")
-    .insert(data)
+    .insert({
+      ...data,
+      user_id: user.id,
+    })
     .select("*")
     .single();
 

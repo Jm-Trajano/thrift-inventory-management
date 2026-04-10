@@ -22,6 +22,9 @@ Implementation note: the live scaffold is using the current Next.js generator ou
 - [x] Step 1.7 - Create shared TypeScript item types
 - [x] Repo prep - Add the initial tracked Supabase migration in `supabase/migrations`
 - [x] Step 1.1 - Supabase project credentials are present in `.env.local`
+- [x] Step 1.2 - Run the database migration
+- [x] Step 1.3 - Enable row level security
+- [x] Step 1.4 - Create the storage bucket
 - [x] Step 2.2 - Build the login page UI
 - [x] Step 2.3 - Add auth server actions
 - [x] Step 2.4 - Add the app auth/query provider
@@ -47,14 +50,14 @@ Implementation note: the live scaffold is using the current Next.js generator ou
 - [x] Step 5.3 - Add the category breakdown
 - [x] Step 5.4 - Add the recent activity section
 - [x] Step 7.1 - Add the item form schema
+- [x] Step 7.2 - Build the add/edit item form page layout
+- [x] Step 7.3 - Finish the underline field form primitives
+- [x] Step 7.4 - Add the live profit preview
 
 ### Up Next
-- [ ] Step 1.2 - Run the database migration
-- [ ] Step 1.3 - Enable row level security
-- [ ] Step 1.4 - Create the storage bucket
-- [ ] Step 7.2 - Build the add/edit item form page layout
-- [ ] Step 7.3 - Finish the underline field form primitives
-- [ ] Step 7.4 - Add the live profit preview
+- [ ] Step 7.5 - Add the photo upload component
+- [ ] Step 7.6 - Add the mark-as-sold dialog
+- [ ] Step 8 - Build the item detail page
 
 ## Design System Decisions (Decide Before Writing Code)
 

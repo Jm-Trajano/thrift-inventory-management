@@ -13,4 +13,5 @@ export const itemSchema = z.object({
   notes: z.string().optional(),
 });
 
-export type ItemFormData = z.infer<typeof itemSchema>;
+export type ItemFormInput = z.input<typeof itemSchema>;
+export type ItemFormData = z.output<typeof itemSchema>;

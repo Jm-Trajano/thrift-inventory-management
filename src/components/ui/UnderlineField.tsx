@@ -1,12 +1,11 @@
 import type { TextareaHTMLAttributes, InputHTMLAttributes } from "react";
 import { forwardRef } from "react";
-import type { FieldError } from "react-hook-form";
 
 import { cn } from "@/lib/utils";
 
 type BaseProps = {
   label: string;
-  error?: FieldError;
+  error?: { message?: string };
   as?: "input" | "textarea";
 };
 

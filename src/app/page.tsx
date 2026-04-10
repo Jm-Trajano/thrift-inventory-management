@@ -5,12 +5,13 @@ const completedSteps = [
   "Step 0.4-0.6: Fonts, editorial theme tokens, and global CSS foundation applied.",
   "Step 1.5-1.7: Env template, Supabase helper modules, and shared item types added.",
   "Repo prep: the tracked SQL migration for the initial Supabase schema is in place.",
-  "Step 1.1 and 2.1: Live Supabase credentials are present and protected routes redirect correctly.",
+  "Step 1.1-1.4 and 2.1: The live Supabase project is wired, migrated, and enforcing protected routes.",
   "Step 2.2-2.4: Login UI, auth server actions, and the app provider are implemented.",
   "Step 3.1-3.4: The protected app shell now has a sidebar, top bar, page shell, and dashboard stub.",
   "Step 4.1-4.4: The item data layer and React Query hooks are implemented.",
   "Step 5.1 and 6.1-6.8: The stats row and full inventory browsing surface are in place.",
   "Step 5.2-5.4 and 7.1: Dashboard analytics sections and the item form schema are in place.",
+  "Step 7.2-7.4: The add/edit item form flow, underline primitives, and profit preview are in place.",
 ];
 
 const nextSteps = [
@@ -18,7 +19,7 @@ const nextSteps = [
   "Step 1.2-1.4: Run the checked-in SQL migration in Supabase to create the table, RLS rules, and photo bucket policies.",
   "Step 7.2-7.4: Build the add/edit item form layout, underline primitives, and profit preview.",
   "Step 7.5-7.6: Add photo upload and mark-as-sold dialog flows.",
-  "Phase 8: Build the item detail page on top of the live inventory routes.",
+  "Phase 8: Replace the item detail placeholder with the full record view.",
 ];
 
 export default function Home() {

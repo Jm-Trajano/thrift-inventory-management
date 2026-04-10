@@ -14,12 +14,14 @@ export function UnderlineSelect({
   onValueChange,
   placeholder,
   options,
+  error,
 }: {
   label: string;
   value?: string;
   onValueChange?: (value: string) => void;
   placeholder: string;
   options: readonly string[];
+  error?: string;
 }) {
   return (
     <div className="space-y-1.5">
@@ -38,6 +40,7 @@ export function UnderlineSelect({
           ))}
         </SelectContent>
       </Select>
+      {error ? <p className="text-xs text-status-archived">{error}</p> : null}
     </div>
   );
 }

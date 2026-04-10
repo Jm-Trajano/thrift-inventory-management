@@ -1,3 +1,4 @@
+import { ItemForm } from "@/components/inventory/ItemForm";
 import { PageShell } from "@/components/layout/PageShell";
 
 export default async function EditInventoryItemPage({
@@ -10,12 +11,9 @@ export default async function EditInventoryItemPage({
   return (
     <PageShell
       title="Edit item."
-      subtitle={`Edit route ready for item ${id}. The full editorial form experience comes in the next implementation pass.`}
+      subtitle="Refine the details, adjust the pricing, and keep the inventory record current."
     >
-      <div className="max-w-2xl border border-border-subtle bg-canvas-surface p-8 text-sm leading-6 text-ink-secondary">
-        The edit form is not wired yet, but this route now exists so row actions
-        and future navigation do not dead-end.
-      </div>
+      <ItemForm mode="edit" itemId={id} />
     </PageShell>
   );
 }
