@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { DM_Mono, DM_Sans, Playfair_Display } from "next/font/google";
+
+import { AuthProvider } from "@/components/providers/AuthProvider";
+
 import "./globals.css";
 
 const playfair = Playfair_Display({
@@ -41,7 +44,7 @@ export default function RootLayout({
       className={`${playfair.variable} ${dmSans.variable} ${dmMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground antialiased">
-        {children}
+        <AuthProvider>{children}</AuthProvider>
       </body>
     </html>
   );

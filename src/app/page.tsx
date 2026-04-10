@@ -3,12 +3,17 @@ const completedSteps = [
   "Step 0.2: Core packages installed for Supabase, forms, charts, and utilities.",
   "Step 0.3: shadcn/ui initialized with the base component set used by the plan.",
   "Step 0.4-0.6: Fonts, editorial theme tokens, and global CSS foundation applied.",
+  "Step 1.5-1.7: Env template, Supabase helper modules, and shared item types added.",
+  "Repo prep: the tracked SQL migration for the initial Supabase schema is in place.",
+  "Step 2.2-2.4: Login UI, auth server actions, and the app provider are implemented.",
+  "Step 3.1-3.4: The protected app shell now has a sidebar, top bar, page shell, and dashboard stub.",
 ];
 
 const nextSteps = [
   "Step 1.1: Create the Supabase project.",
-  "Step 1.2: Run the items table migration.",
-  "Step 1.3: Enable row level security and storage policies.",
+  "Step 1.2-1.4: Run the checked-in SQL migration in Supabase to create the table, RLS rules, and photo bucket policies.",
+  "Step 2.1: Confirm route protection with live Supabase credentials and a real account.",
+  "Phase 4: Start the item data layer once the database is live.",
 ];
 
 export default function Home() {
@@ -36,7 +41,7 @@ export default function Home() {
                 Current Phase
               </p>
               <p className="font-display text-2xl text-ink-primary">
-                Phase 0 complete
+                Phase 3 shell ready
               </p>
             </div>
             <div>
@@ -49,7 +54,7 @@ export default function Home() {
               <p className="mb-2 text-xs uppercase tracking-[0.24em] text-ink-muted">
                 Next Build Slice
               </p>
-              <p>Supabase project setup and authenticated app routing.</p>
+              <p>Live Supabase setup, then the item data layer and inventory views.</p>
             </div>
           </div>
         </div>

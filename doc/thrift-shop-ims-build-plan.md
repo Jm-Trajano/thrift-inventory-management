@@ -17,12 +17,24 @@ Implementation note: the live scaffold is using the current Next.js generator ou
 - [x] Step 0.4 - Configure the root layout fonts
 - [x] Step 0.5 - Configure design tokens and Tailwind v4 theme variables
 - [x] Step 0.6 - Apply the global CSS foundation
+- [x] Step 1.5 - Add a local environment template for Supabase credentials
+- [x] Step 1.6 - Create Supabase client helper modules
+- [x] Step 1.7 - Create shared TypeScript item types
+- [x] Repo prep - Add the initial tracked Supabase migration in `supabase/migrations`
+- [x] Step 2.2 - Build the login page UI
+- [x] Step 2.3 - Add auth server actions
+- [x] Step 2.4 - Add the app auth/query provider
+- [x] Step 3.1 - Add the authenticated route group layout
+- [x] Step 3.2 - Add the sidebar navigation shell
+- [x] Step 3.3 - Add the top bar shell
+- [x] Step 3.4 - Add the reusable page shell component
 
 ### Up Next
 - [ ] Step 1.1 - Create the Supabase project
 - [ ] Step 1.2 - Run the database migration
 - [ ] Step 1.3 - Enable row level security
 - [ ] Step 1.4 - Create the storage bucket
+- [ ] Step 2.1 - Turn on protected route handling with live Supabase credentials
 
 ## Design System Decisions (Decide Before Writing Code)
 
