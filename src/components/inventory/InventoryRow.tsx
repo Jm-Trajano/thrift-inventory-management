@@ -27,7 +27,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { StatusBadge } from "@/components/ui/StatusBadge";
 import { TableCell, TableRow } from "@/components/ui/table";
-import { restoreItem } from "@/lib/items";
+import { restoreItem, softDeleteItem } from "@/lib/items";
 import { formatCurrency, formatShortDate } from "@/lib/utils";
 import type { Item } from "@/types/item";
 
@@ -53,6 +53,30 @@ export function InventoryRow({ item }: { item: Item }) {
       ]);
 
       toast.success("Item restored to available.");
+    },
+    onError: (error: unknown) => {
+      toast.error(
+        error instanceof Error ? error.message : "Something went wrong.",
+      );
+    },
+  });
+
+  const archiveMutation = useMutation({
+    mutationFn: async () => {
+      if (!supabase) {
+        throw new Error("Supabase client is not ready.");
+      }
+
+      await softDeleteItem(item.id, supabase);
+    },
+    onSuccess: async () => {
+      await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["items"] }),
+        queryClient.invalidateQueries({ queryKey: ["item-stats"] }),
+        queryClient.invalidateQueries({ queryKey: ["item", item.id] }),
+      ]);
+
+      toast.success("Item archived.");
     },
     onError: (error: unknown) => {
       toast.error(
@@ -146,16 +170,12 @@ export function InventoryRow({ item }: { item: Item }) {
                 </DropdownMenuItem>
               )}
               <DropdownMenuItem
-                onSelect={() => {
-                  toast.message("Archive comes next", {
-                    description:
-                      "The sold-state flow is connected. Archive will be wired with the detail page slice.",
-                  });
-                }}
+                disabled={archiveMutation.isPending}
+                onSelect={() => archiveMutation.mutate()}
                 variant="destructive"
               >
                 <Trash2 size={14} />
-                Archive
+                {archiveMutation.isPending ? "Archiving..." : "Archive"}
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>

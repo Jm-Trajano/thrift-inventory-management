@@ -11,12 +11,12 @@ const completedSteps = [
   "Step 4.1-4.4: The item data layer and React Query hooks are implemented.",
   "Step 5.1 and 6.1-6.8: The stats row and full inventory browsing surface are in place.",
   "Step 5.2-5.4 and 7.1: Dashboard analytics sections and the item form schema are in place.",
-  "Step 7.2-7.6: The add/edit item form flow, photo upload, and sold-state actions are in place.",
+  "Step 7.2-8: The item form flow, sold-state mutations, and full detail page are in place.",
 ];
 
 const nextSteps = [
-  "Phase 8: Replace the item detail placeholder with the full record view.",
   "Phase 9: Add CSV export for filtered inventory data.",
+  "Phase 10: Extend toast and mutation polish across the remaining actions.",
   "Phase 12: Run the end-to-end UX checklist against a live account.",
 ];
 
@@ -59,7 +59,7 @@ export default function Home() {
               <p className="mb-2 text-xs uppercase tracking-[0.24em] text-ink-muted">
                 Next Build Slice
               </p>
-              <p>Build the full detail page next, then export and QA passes.</p>
+              <p>Add CSV export next, then finish the polish and QA passes.</p>
             </div>
           </div>
         </div>
