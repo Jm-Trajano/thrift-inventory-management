@@ -2,21 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  BarChart3,
-  Package2,
-  PlusCircle,
-  type LucideIcon,
-} from "lucide-react";
 
 import { logout } from "@/app/login/actions";
+import { appNavLinks, isNavLinkActive } from "@/components/layout/nav";
 import { cn } from "@/lib/utils";
-
-const navLinks: Array<{ href: string; label: string; icon: LucideIcon }> = [
-  { href: "/dashboard", label: "Dashboard", icon: BarChart3 },
-  { href: "/inventory", label: "Inventory", icon: Package2 },
-  { href: "/inventory/new", label: "Add Item", icon: PlusCircle },
-];
 
 export function Sidebar({ userEmail }: { userEmail?: string }) {
   const pathname = usePathname();
@@ -33,10 +22,8 @@ export function Sidebar({ userEmail }: { userEmail?: string }) {
       </div>
 
       <ul className="flex-1 space-y-1">
-        {navLinks.map((link) => {
-          const isActive =
-            pathname === link.href ||
-            (link.href !== "/dashboard" && pathname.startsWith(link.href));
+        {appNavLinks.map((link) => {
+          const isActive = isNavLinkActive(pathname, link.href);
 
           return (
             <li key={link.href}>
