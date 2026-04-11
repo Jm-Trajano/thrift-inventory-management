@@ -6,10 +6,7 @@ import { PageShell } from "@/components/layout/PageShell";
 
 export default function DashboardPage() {
   return (
-    <PageShell
-      title="A clear read on the floor."
-      subtitle="The dashboard is now wired to the shared stats hook. Once Supabase is connected, these totals will reflect your live inventory and sales."
-    >
+    <PageShell title="A clear read on the floor.">
       <div className="space-y-10">
         <StatsRow />
         <div className="grid gap-8 xl:grid-cols-[1.35fr_1fr]">
