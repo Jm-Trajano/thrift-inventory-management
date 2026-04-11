@@ -12,12 +12,13 @@ const completedSteps = [
   "Step 5.1 and 6.1-6.8: The stats row and full inventory browsing surface are in place.",
   "Step 5.2-5.4 and 7.1: Dashboard analytics sections and the item form schema are in place.",
   "Step 7.2-10: The item flow, detail page, CSV export, and action polish are in place.",
+  "Step 12.4: The full UX checklist has been run end to end against a live signed-in account.",
 ];
 
 const nextSteps = [
-  "Phase 12: Run the end-to-end UX checklist against a live account.",
   "Deployment: push the polished build and verify the hosted flow.",
   "Responsive QA: audit mobile inventory and form layouts against the checklist.",
+  "Production hardening: add pagination, image optimization, and remaining accessibility polish.",
 ];
 
 export default function Home() {
@@ -46,7 +47,7 @@ export default function Home() {
                 Current Phase
               </p>
               <p className="font-display text-2xl text-ink-primary">
-                Inventory workflows taking shape
+                UX checklist completed
               </p>
             </div>
             <div>
@@ -59,7 +60,7 @@ export default function Home() {
               <p className="mb-2 text-xs uppercase tracking-[0.24em] text-ink-muted">
                 Next Build Slice
               </p>
-              <p>Run the live UX checklist next, then do deployment verification.</p>
+              <p>Move into deployment verification and production hardening.</p>
             </div>
           </div>
         </div>
